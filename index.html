@@ -1,0 +1,1945 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b6b5c">
+  <meta name="description" content="VyapaarAI - Next-Gen Offline-First AI Growth Assistant & Voice Khatabook for Indian Local Businesses">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg">
+  <title>VyapaarAI - AI Business Assistant & Voice Khatabook</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --ink: #111827;
+      --mut: #64748b;
+      --pri: #0b6b5c;
+      --pri-hover: #084e43;
+      --pri-light: #e6f4f1;
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --on: #ffffff;
+      --bd: #e2e8f0;
+      --red: #ef4444;
+      --red-light: #fee2e2;
+      --green: #10b981;
+      --green-light: #d1fae5;
+      --nav: #0d2823;
+      --warn: #fffbeb;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
+      --radius: 12px;
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      color-scheme: light dark;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0b0f12;
+        --card: #151c20;
+        --ink: #f1f5f9;
+        --mut: #94a3b8;
+        --pri: #2fb59f;
+        --pri-hover: #229986;
+        --pri-light: #12302a;
+        --accent: #fbbf24;
+        --accent-light: #3d2f09;
+        --on: #04221d;
+        --bd: #263339;
+        --red: #f87171;
+        --red-light: #451111;
+        --green: #34d399;
+        --green-light: #0d3829;
+        --nav: #071513;
+        --warn: #2e260e;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0b0f12;
+      --card: #151c20;
+      --ink: #f1f5f9;
+      --mut: #94a3b8;
+      --pri: #2fb59f;
+      --pri-hover: #229986;
+      --pri-light: #12302a;
+      --accent: #fbbf24;
+      --accent-light: #3d2f09;
+      --on: #04221d;
+      --bd: #263339;
+      --red: #f87171;
+      --red-light: #451111;
+      --green: #34d399;
+      --green-light: #0d3829;
+      --nav: #071513;
+      --warn: #2e260e;
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+    body {
+      padding: 0 14px 100px;
+      max-width: 680px;
+      margin: 0 auto;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    h1 { font-size: 22px; margin: 16px 0 10px; font-weight: 700; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    h2 { font-size: 18px; margin: 14px 0 8px; font-weight: 600; }
+    h3 { margin: 0 0 8px; font-size: 16px; font-weight: 600; }
+    .mut, small { color: var(--mut); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .kpis {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .kpis .card { margin: 0; padding: 12px; display: flex; flex-direction: column; justify-content: space-between; }
+    .kpis b { font-size: 20px; font-weight: 700; color: var(--ink); margin-top: 4px; display: block; }
+    .kpi-icon { font-size: 18px; float: right; opacity: 0.85; }
+    .kpis .trend { font-size: 11px; margin-top: 4px; font-weight: 600; }
+    .trend.pos { color: var(--green); }
+    .trend.neg { color: var(--red); }
+
+    input, select, textarea, button {
+      font: inherit;
+      padding: 10px 12px;
+      border: 1px solid var(--bd);
+      border-radius: 9px;
+      background: var(--card);
+      color: var(--ink);
+      max-width: 100%;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--pri);
+      box-shadow: 0 0 0 3px rgba(11, 107, 92, 0.15);
+    }
+    button {
+      cursor: pointer;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      user-select: none;
+    }
+    button:active { transform: scale(0.98); }
+    .pri {
+      background: var(--pri);
+      color: var(--on);
+      border-color: var(--pri);
+      font-weight: 600;
+    }
+    .pri:hover { background: var(--pri-hover); }
+    .sec { background: var(--pri-light); color: var(--pri); border-color: transparent; }
+    .sm { padding: 6px 10px; font-size: 13px; border-radius: 7px; }
+    .dng { color: var(--red); border-color: rgba(239, 68, 68, 0.3); background: var(--red-light); }
+    .suc { color: var(--green); border-color: rgba(16, 185, 129, 0.3); background: var(--green-light); }
+
+    .f { display: flex; flex-direction: column; gap: 10px; }
+    .r { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+    .r > * { flex: 1; min-width: 120px; }
+    .acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .acts button { flex: 0 0 auto; }
+
+    /* Modern Quick Action Bar */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+    .q-btn {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 10px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+    .q-btn i { font-size: 20px; font-style: normal; }
+    .q-btn.voice {
+      background: linear-gradient(135deg, #0b6b5c, #064e3b);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 10px rgba(11, 107, 92, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .q-btn.voice::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 60%);
+      opacity: 0.6;
+    }
+
+    /* Badges & Pills */
+    .pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      background: var(--bd);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .pill.High { background: var(--red-light); color: var(--red); }
+    .pill.Medium { background: var(--accent-light); color: #b45309; }
+    .pill.Low { background: var(--green-light); color: var(--green); }
+    .ban {
+      background: var(--warn);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .done { text-decoration: line-through; color: var(--mut); }
+    .od { color: var(--red); font-weight: 700; }
+    .empty { text-align: center; color: var(--mut); padding: 24px; font-size: 14px; }
+
+    /* Fixed Navigation Bar */
+    nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--nav);
+      display: flex;
+      padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+      z-index: 50;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+    }
+    nav button {
+      flex: 1;
+      background: none;
+      border: 0;
+      color: #cfe3de;
+      font-size: 11px;
+      padding: 6px 2px;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    nav button.on {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-weight: 600;
+    }
+    nav button span.icon { font-size: 16px; }
+    nav em {
+      position: absolute;
+      top: 2px;
+      right: 8px;
+      background: var(--accent);
+      color: #000;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      font-style: normal;
+    }
+
+    /* Modals & Dialogs */
+    #t {
+      position: fixed;
+      left: 14px;
+      right: 14px;
+      top: calc(12px + env(safe-area-inset-top, 0px));
+      background: var(--nav);
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      z-index: 999;
+      display: none;
+      font-weight: 500;
+      box-shadow: var(--shadow-lg);
+      animation: slideDown 0.2s ease;
+    }
+    #t.e { background: var(--red); }
+    #m, #modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    #m > div, .modal-box {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 14px;
+      max-width: 440px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--bd);
+      animation: popIn 0.2s ease;
+    }
+    @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes popIn { from { transform: scale(0.94); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    /* Header Bar */
+    .hd {
+      padding: 12px 0 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--bd);
+      margin-bottom: 10px;
+    }
+    .hd-brand { display: flex; align-items: center; gap: 8px; }
+    .hd-logo { width: 34px; height: 34px; border-radius: 8px; }
+    .hd b { font-size: 20px; color: var(--pri); display: block; line-height: 1.1; }
+    .hd-tools { display: flex; align-items: center; gap: 6px; }
+    .lang-btn, .theme-btn {
+      padding: 4px 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--bd);
+      background: var(--card);
+      cursor: pointer;
+    }
+
+    /* Charts & Visuals */
+    .chart-container {
+      margin: 10px 0;
+      width: 100%;
+      overflow-x: auto;
+    }
+    .chart-svg { width: 100%; height: auto; display: block; }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; font-size: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 4px; }
+    .legend-color { width: 10px; height: 10px; border-radius: 2px; }
+
+    /* Fallback classic bars for test compat */
+    .bars { display: flex; align-items: flex-end; gap: 4px; height: 140px; padding-top: 8px; }
+    .bar { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+    .bar i { width: 100%; background: var(--pri); border-radius: 4px 4px 0 0; display: block; min-height: 2px; }
+    .bar span { font-size: 9px; color: var(--mut); white-space: nowrap; overflow: hidden; max-width: 100%; }
+
+    /* Invoicing & Thermal Print */
+    @media print {
+      body { padding: 0; margin: 0; max-width: 100%; }
+      nav, .hd, .acts, .quick-actions, .r, .ban, button { display: none !important; }
+      .card { border: none; box-shadow: none; padding: 0; margin: 0; }
+      .print-bill { display: block !important; padding: 10px; }
+    }
+    .bill-paper {
+      background: #fff;
+      color: #000;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 13px;
+      border: 1px dashed #ccc;
+    }
+    .bill-header { text-align: center; border-bottom: 1px dashed #000; padding-bottom: 8px; margin-bottom: 8px; }
+    .bill-row { display: flex; justify-content: space-between; margin: 4px 0; }
+    .bill-total { border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; font-weight: bold; margin: 8px 0; }
+
+    /* Desktop Responsive Layout */
+    @media (min-width: 900px) {
+      body { max-width: 960px; }
+      .kpis { grid-template-columns: repeat(4, 1fr); }
+      nav { left: 50%; right: auto; width: 620px; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Toast message -->
+  <div id="t" role="status"></div>
+
+  <!-- Standard Confirm Modal -->
+  <div id="m">
+    <div>
+      <p id="mq" style="font-weight:600;margin-top:0"></p>
+      <div class="acts" style="justify-content:flex-end">
+        <button id="mn">Cancel</button>
+        <button class="pri" id="my">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Universal Interactive Modal (Voice, QR, Bill, AI Copilot, Settings) -->
+  <div id="modal-overlay">
+    <div class="modal-box" id="modal-content"></div>
+  </div>
+
+  <!-- Top Branding Header -->
+  <div class="hd">
+    <div class="hd-brand">
+      <svg class="hd-logo" viewBox="0 0 512 512" fill="none">
+        <rect width="512" height="512" rx="128" fill="#0b6b5c"/>
+        <path d="M176 190 C176 140, 210 100, 256 100 C302 100, 336 140, 336 190" stroke="#2fb59f" stroke-width="26" stroke-linecap="round"/>
+        <rect x="136" y="180" width="240" height="230" rx="36" fill="#fff"/>
+        <path d="M210 236 L302 236 M210 266 L286 266 M210 236 L210 300 C242 300, 266 286, 266 266 C266 236, 210 246, 210 300 L286 366" stroke="#0b6b5c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+        <polygon points="360,140 372,168 400,180 372,192 360,220 348,192 320,180 348,168" fill="#f59e0b"/>
+      </svg>
+      <div>
+        <b id="lbl-title">VyapaarAI</b>
+        <small id="lbl-tagline">Your next sale starts with your next smart action.</small>
+      </div>
+    </div>
+    <div class="hd-tools">
+      <button class="lang-btn" data-a="switch-lang" title="Switch Language">🌐 <span id="cur-lang">EN</span></button>
+      <button class="theme-btn" data-a="toggle-theme" title="Toggle Theme">🌓</button>
+    </div>
+  </div>
+
+  <!-- Main App Workspace -->
+  <div id="app"></div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav id="nav" aria-label="Main Navigation"></nav>
+
+  <!-- Embedded Standalone QRCode Engine (Arase Kazuhiko, MIT) -->
+  <script>
+    var QRCode=(function(){var PAD0=0xEC,PAD1=0x11;function QRCode(t,e){this.typeNumber=t;this.errorCorrectionLevel=e;this.modules=null;this.moduleCount=0;this.dataCache=null;this.dataList=[];}function QR8bitByte(d){this.mode=4;this.data=d;}QR8bitByte.prototype={getLength:function(){return this.data.length;},write:function(b){for(var i=0;i<this.data.length;i++)b.put(this.data.charCodeAt(i),8);}};var QRUtil={PATTERN_POSITION_TABLE:[[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54]],G15:(1<<10)|(1<<8)|(1<<5)|(1<<4)|(1<<2)|(1<<1)|1,G15_MASK:(1<<14)|(1<<12)|(1<<10)|(1<<4)|(1<<1),getBCHTypeInfo:function(d){var v=d<<10;while(QRUtil.getBCHDigit(v)-QRUtil.getBCHDigit(QRUtil.G15)>=0)v^=(QRUtil.G15<<(QRUtil.getBCHDigit(v)-QRUtil.getBCHDigit(QRUtil.G15)));return((d<<10)|v)^QRUtil.G15_MASK;},getBCHDigit:function(d){var c=0;while(d!=0){c++;d>>>=1;}return c;},getPatternPosition:function(t){return QRUtil.PATTERN_POSITION_TABLE[t-1];},getMask:function(m,i,j){switch(m){case 0:return(i+j)%2==0;case 1:return i%2==0;case 2:return j%3==0;case 3:return(i+j)%3==0;case 4:return(Math.floor(i/2)+Math.floor(j/3))%2==0;case 5:return(i*j)%2+(i*j)%3==0;case 6:return((i*j)%2+(i*j)%3)%2==0;case 7:return((i*j)%3+(i+j)%2)%2==0;default:throw new Error("bad mask:"+m);}},getErrorCorrectionPolynomial:function(l){var a=new QRPolynomial([1],0);for(var i=0;i<l;i++)a=a.multiply(new QRPolynomial([1,QRMath.gexp(i)],0));return a;},getLengthInBits:function(m,t){return(t<10)?8:16;},getLostPoint:function(q){var c=q.getModuleCount(),lp=0;for(var r=0;r<c;r++){for(var col=0;col<c;col++){var sc=0,dk=q.isDark(r,col);for(var dr=-1;dr<=1;dr++){for(var dc=-1;dc<=1;dc++){if(r+dr<0||c<=r+dr||col+dc<0||c<=col+dc||(!dr&&!dc))continue;if(dk==q.isDark(r+dr,col+dc))sc++;}}if(sc>5)lp+=3+sc-5;}}return lp;}};var QRMath={glog:function(n){if(n<1)throw new Error("glog");return QRMath.LOG_TABLE[n];},gexp:function(n){while(n<0)n+=255;while(n>=256)n-=255;return QRMath.EXP_TABLE[n];},EXP_TABLE:new Array(256),LOG_TABLE:new Array(256)};for(var i=0;i<8;i++)QRMath.EXP_TABLE[i]=1<<i;for(var i=8;i<256;i++)QRMath.EXP_TABLE[i]=QRMath.EXP_TABLE[i-4]^QRMath.EXP_TABLE[i-5]^QRMath.EXP_TABLE[i-6]^QRMath.EXP_TABLE[i-8];for(var i=0;i<255;i++)QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]]=i;function QRPolynomial(n,s){var o=0;while(o<n.length&&n[o]==0)o++;this.num=new Array(n.length-o+s);for(var i=0;i<n.length-o;i++)this.num[i]=n[i+o];}QRPolynomial.prototype={get:function(i){return this.num[i];},getLength:function(){return this.num.length;},multiply:function(e){var num=new Array(this.getLength()+e.getLength()-1);for(var i=0;i<this.getLength();i++){for(var j=0;j<e.getLength();j++)num[i+j]^=QRMath.gexp(QRMath.glog(this.get(i))+QRMath.glog(e.get(j)));}return new QRPolynomial(num,0);},mod:function(e){if(this.getLength()-e.getLength()<0)return this;var r=QRMath.glog(this.get(0))-QRMath.glog(e.get(0)),num=new Array(this.getLength());for(var i=0;i<this.getLength();i++)num[i]=this.get(i);for(var i=0;i<e.getLength();i++)num[i]^=QRMath.gexp(QRMath.glog(e.get(i))+r);return new QRPolynomial(num,0).mod(e);}};function QRRSBlock(t,d){this.totalCount=t;this.dataCount=d;}QRRSBlock.RS_BLOCK_TABLE=[[1,26,19],[1,44,34],[1,70,55],[1,100,80],[1,134,108],[2,86,68],[2,98,78],[2,121,97],[2,146,116],[2,86,68]];QRRSBlock.getRSBlocks=function(t){var b=QRRSBlock.RS_BLOCK_TABLE[t-1],list=[];for(var i=0;i<b[0];i++)list.push(new QRRSBlock(b[1],b[2]));return list;};function QRBitBuffer(){this.buffer=[];this.length=0;}QRBitBuffer.prototype={put:function(n,l){for(var i=0;i<l;i++)this.putBit(((n>>>(l-i-1))&1)==1);},putBit:function(b){var idx=Math.floor(this.length/8);if(this.buffer.length<=idx)this.buffer.push(0);if(b)this.buffer[idx]|=(0x80>>>(this.length%8));this.length++;}};QRCode.prototype={addData:function(d){this.dataList.push(new QR8bitByte(d));this.dataCache=null;},isDark:function(r,c){return this.modules[r][c];},getModuleCount:function(){return this.moduleCount;},make:function(){this.makeImpl(false,this.getBestMaskPattern());},makeImpl:function(test,mask){this.moduleCount=this.typeNumber*4+17;this.modules=new Array(this.moduleCount);for(var r=0;r<this.moduleCount;r++){this.modules[r]=new Array(this.moduleCount);for(var c=0;c<this.moduleCount;c++)this.modules[r][c]=null;}this.setupProbe(0,0);this.setupProbe(this.moduleCount-7,0);this.setupProbe(0,this.moduleCount-7);this.setupPosAdj();this.setupTiming();this.setupTypeInfo(test,mask);if(!this.dataCache)this.dataCache=QRCode.createData(this.typeNumber,this.errorCorrectionLevel,this.dataList);this.mapData(this.dataCache,mask);},setupProbe:function(row,col){for(var r=-1;r<=7;r++){if(row+r<0||this.moduleCount<=row+r)continue;for(var c=-1;c<=7;c++){if(col+c<0||this.moduleCount<=col+c)continue;this.modules[row+r][col+c]=(0<=r&&r<=6&&(c==0||c==6))||(0<=c&&c<=6&&(r==0||r==6))||(2<=r&&r<=4&&2<=c&&c<=4);}}},getBestMaskPattern:function(){var min=0,pat=0;for(var i=0;i<8;i++){this.makeImpl(true,i);var lp=QRUtil.getLostPoint(this);if(!i||min>lp){min=lp;pat=i;}}return pat;},setupTiming:function(){for(var r=8;r<this.moduleCount-8;r++){if(this.modules[r][6]==null)this.modules[r][6]=(r%2==0);}for(var c=8;c<this.moduleCount-8;c++){if(this.modules[6][c]==null)this.modules[6][c]=(c%2==0);}},setupPosAdj:function(){var pos=QRUtil.getPatternPosition(this.typeNumber);if(!pos)return;for(var i=0;i<pos.length;i++){for(var j=0;j<pos.length;j++){var row=pos[i],col=pos[j];if(this.modules[row][col]!=null)continue;for(var r=-2;r<=2;r++){for(var c=-2;c<=2;c++){this.modules[row+r][col+c]=(r==-2||r==2||c==-2||c==2||(!r&&!c));}}}}},setupTypeInfo:function(test,mask){var d=(this.errorCorrectionLevel<<3)|mask,bits=QRUtil.getBCHTypeInfo(d);for(var i=0;i<15;i++){var mod=(!test&&((bits>>i)&1)==1);if(i<6)this.modules[i][8]=mod;else if(i<8)this.modules[i+1][8]=mod;else this.modules[this.moduleCount-15+i][8]=mod;if(i<8)this.modules[8][this.moduleCount-i-1]=mod;else if(i<9)this.modules[8][15-i]=mod;else this.modules[8][15-i-1]=mod;}this.modules[this.moduleCount-8][8]=!test;},mapData:function(data,mask){var inc=-1,row=this.moduleCount-1,bit=7,byteIdx=0;for(var col=this.moduleCount-1;col>0;col-=2){if(col==6)col--;while(true){for(var c=0;c<2;c++){if(this.modules[row][col-c]==null){var dark=false;if(byteIdx<data.length)dark=(((data[byteIdx]>>>bit)&1)==1);if(QRUtil.getMask(mask,row,col-c))dark=!dark;this.modules[row][col-c]=dark;bit--;if(bit==-1){byteIdx++;bit=7;}}}row+=inc;if(row<0||this.moduleCount<=row){row-=inc;inc=-inc;break;}}}}};QRCode.createData=function(type,ec,list){var rs=QRRSBlock.getRSBlocks(type),buf=new QRBitBuffer();for(var i=0;i<list.length;i++){var d=list[i];buf.put(d.mode,4);buf.put(d.getLength(),QRUtil.getLengthInBits(d.mode,type));d.write(buf);}var tot=0;for(var i=0;i<rs.length;i++)tot+=rs[i].dataCount;if(buf.length+4<=tot*8)buf.put(0,4);while(buf.length%8!=0)buf.putBit(false);while(true){if(buf.length>=tot*8)break;buf.put(PAD0,8);if(buf.length>=tot*8)break;buf.put(PAD1,8);}return QRCode.createBytes(buf,rs);};QRCode.createBytes=function(buf,rs){var off=0,maxDc=0,maxEc=0,dc=new Array(rs.length),ec=new Array(rs.length);for(var r=0;r<rs.length;r++){var dcCount=rs[r].dataCount,ecCount=rs[r].totalCount-dcCount;maxDc=Math.max(maxDc,dcCount);maxEc=Math.max(maxEc,ecCount);dc[r]=new Array(dcCount);for(var i=0;i<dc[r].length;i++)dc[r][i]=0xff&buf.buffer[i+off];off+=dcCount;var rsP=QRUtil.getErrorCorrectionPolynomial(ecCount),raw=new QRPolynomial(dc[r],rsP.getLength()-1),mod=raw.mod(rsP);ec[r]=new Array(rsP.getLength()-1);for(var i=0;i<ec[r].length;i++){var idx=i+mod.getLength()-ec[r].length;ec[r][i]=(idx>=0)?mod.get(idx):0;}}var tot=0;for(var i=0;i<rs.length;i++)tot+=rs[i].totalCount;var data=new Array(tot),idx=0;for(var i=0;i<maxDc;i++){for(var r=0;r<rs.length;r++){if(i<dc[r].length)data[idx++]=dc[r][i];}}for(var i=0;i<maxEc;i++){for(var r=0;r<rs.length;r++){if(i<ec[r].length)data[idx++]=ec[r][i];}}return data;};return function(text,size){size=size||180;var type=4;if(text.length>70)type=6;if(text.length>130)type=10;var qr=new QRCode(type,0);qr.addData(text);qr.make();var count=qr.getModuleCount(),cell=(size/count).toFixed(2),rects='';for(var r=0;r<count;r++){for(var c=0;c<count;c++){if(qr.isDark(r,c))rects+='<rect x="'+(c*cell)+'" y="'+(r*cell)+'" width="'+cell+' height="'+cell+'" fill="#0b6b5c"/>';}}return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+size+' '+size+'" width="'+size+'" height="'+size+'" style="background:#fff;padding:8px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:inline-block">'+rects.replace(/width="([0-9.]+)' height=/g,'width="$1" height=')+'</svg>';};})();
+  </script>
+
+  <!-- Core VyapaarAI Application Engine -->
+  <script>
+    const $ = s => document.querySelector(s),
+          $$ = s => document.querySelectorAll(s),
+          DAY = 864e5,
+          iso = d => new Date(d).toISOString().slice(0, 10),
+          ago = n => iso(Date.now() - n * DAY),
+          since = s => Math.floor((Date.now() - new Date(s)) / DAY),
+          uid = () => Math.random().toString(36).slice(2, 9);
+
+    const inr = n => new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(n || 0);
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    const CATS = ['Grocery', 'Dairy', 'Snacks', 'Household', 'Personal Care'],
+          ECATS = ['Rent', 'Stock purchase', 'Electricity', 'Salary', 'Other'],
+          KEY = 'vyapaarai.v1',
+          SETTINGS_KEY = 'vyapaarai.settings.v1',
+          sum = a => a.reduce((t, x) => t + x.amount, 0);
+
+    // Multi-Language Localization Engine (English, Hinglish, Hindi)
+    const I18N = {
+      en: {
+        title: "VyapaarAI",
+        tagline: "Your next sale starts with your next smart action.",
+        overview: "Business overview",
+        customers: "Customers",
+        sales: "Sales & expenses",
+        tasks: "Follow-ups",
+        advisor: "Growth Advisor",
+        writer: "Message writer",
+        totalSales: "Total sales",
+        expenses: "Expenses",
+        profit: "Estimated profit",
+        udhaarPending: "Udhaar pending",
+        activeCustomers: "Active customers (30d)",
+        lapsedCustomers: "Not seen in 30+ days",
+        voiceBtn: "Voice Khata",
+        newSaleBtn: "Add Sale",
+        askAiBtn: "AI Copilot",
+        billBtn: "Print Bill",
+        udhaarRecTitle: "Udhaar pending",
+        ruleExplainer: "How these rules work"
+      },
+      hn: {
+        title: "VyapaarAI",
+        tagline: "Smart dhandha, tez munafa aur aasaan hisaab.",
+        overview: "Business Dashboard",
+        customers: "Grahak Khata",
+        sales: "Bikri aur Kharcha",
+        tasks: "Pending Kaam",
+        advisor: "Vyapaar Advisor",
+        writer: "WhatsApp Messages",
+        totalSales: "Kul Bikri",
+        expenses: "Dukaan Kharcha",
+        profit: "Anumaanit Munafa",
+        udhaarPending: "Udhaar Baaki",
+        activeCustomers: "Active Grahak (30d)",
+        lapsedCustomers: "Shant Grahak (30+ din)",
+        voiceBtn: "Bol Kar Khata",
+        newSaleBtn: "Bikri Likho",
+        askAiBtn: "AI Coach",
+        billBtn: "Parcha / Bill",
+        udhaarRecTitle: "Udhaar pending",
+        ruleExplainer: "How these rules work"
+      },
+      hi: {
+        title: "व्यापार एआई",
+        tagline: "स्मार्ट व्यापार, तेज मुनाफा और आसान बहीखाता।",
+        overview: "व्यापार विवरण",
+        customers: "ग्राहक बहीखाता",
+        sales: "बिक्री व खर्च",
+        tasks: "कार्य सूची",
+        advisor: "व्यापार सलाहकार",
+        writer: "व्हाट्सएप संदेश",
+        totalSales: "कुल बिक्री",
+        expenses: "दुकान खर्च",
+        profit: "अनुमानित मुनाफा",
+        udhaarPending: "उधार बाकी",
+        activeCustomers: "सक्रिय ग्राहक (30 दिन)",
+        lapsedCustomers: "30+ दिन से अनुपस्थित",
+        voiceBtn: "बोलकर लिखें",
+        newSaleBtn: "बिक्री जोड़ें",
+        askAiBtn: "एआई कोच",
+        billBtn: "बिल रसीद",
+        udhaarRecTitle: "Udhaar pending",
+        ruleExplainer: "How these rules work"
+      }
+    };
+
+    function t(key) {
+      const l = U.lang || 'en';
+      return (I18N[l] && I18N[l][key]) || I18N.en[key] || key;
+    }
+
+    // Settings Profile (Shop name, UPI ID, Gemini API Key)
+    function loadSettings() {
+      try {
+        const s = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+        return Object.assign({
+          shopName: "Vyapaar Kirana Store",
+          upiId: "vyapaar.store@upi",
+          phone: "9876543210",
+          address: "Shop #4, Main Market",
+          geminiKey: ""
+        }, s || {});
+      } catch (e) {
+        return { shopName: "Vyapaar Kirana Store", upiId: "vyapaar.store@upi", phone: "9876543210", address: "Shop #4, Main Market", geminiKey: "" };
+      }
+    }
+    let SETTINGS = loadSettings();
+    const saveSettings = () => { try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(SETTINGS)); } catch(e){} };
+
+    // Fictional Seed Data
+    function seed() {
+      const P = [
+        ['Ramesh Gupta', 2, 1800, 3],
+        ['Sunita Verma', 3, 900, 5],
+        ['Anil Kapoor', 4, 2600, 40],
+        ['Meena Iyer', 2, 700, 2],
+        ['Farhan Sheikh', 5, 1500, 36],
+        ['Pooja Nair', 3, 1100, 6],
+        ['Harpreet Singh', 6, 3200, 28],
+        ['Kavita Joshi', 4, 600, 55]
+      ];
+      const customers = P.map((p, i) => ({
+        id: 'c' + i,
+        name: p[0],
+        phone: '98100000' + (10 + i),
+        notes: i === 2 ? 'Prefers monthly grocery bundle' : i === 4 ? 'Buys snacks for shop events' : ''
+      }));
+      const sales = [], expenses = [];
+      P.forEach((p, i) => {
+        for (let d = p[3]; d <= 85; d += p[1] + Math.floor(p[1] * (i % 3) / 2) + (i > 1 ? 3 : 0)) {
+          const c = CATS[(d + i) % 5];
+          if (c === 'Dairy' && d < 30 && d % 2) continue;
+          sales.push({
+            id: 's' + i + '_' + d,
+            date: ago(d),
+            amount: Math.round(p[2] * (0.5 + ((d * 7 + i) % 5) / 10) / 10) * 10,
+            category: c,
+            customerId: 'c' + i
+          });
+        }
+      });
+      for (let m = 0; m < 3; m++) {
+        expenses.push(
+          { id: 'ea' + m, date: ago(m * 30 + 2), amount: 15000, category: 'Rent', note: 'Shop rent' },
+          { id: 'eb' + m, date: ago(m * 30 + 8), amount: 9000 + m * 700, category: 'Stock purchase', note: 'Wholesale stock' },
+          { id: 'ec' + m, date: ago(m * 30 + 12), amount: 2200, category: 'Electricity', note: '' }
+        );
+      }
+      ['c6', 'c2'].forEach(id => sales.filter(s => s.customerId === id).slice(0, 1).forEach(s => s.paid = false));
+      return {
+        customers,
+        sales,
+        expenses,
+        followups: [
+          { id: 'f1', customerId: 'c2', title: 'Check why monthly order stopped', due: ago(3), priority: 'High', done: false },
+          { id: 'f2', customerId: 'c6', title: 'Offer festive bulk discount', due: ago(-2), priority: 'Medium', done: false },
+          { id: 'f3', customerId: 'c0', title: 'Thank for referral', due: ago(10), priority: 'Low', done: true }
+        ],
+        demo: true
+      };
+    }
+
+    const empty = () => ({ customers: [], sales: [], expenses: [], followups: [], demo: false });
+
+    function load() {
+      try {
+        const s = JSON.parse(localStorage.getItem(KEY));
+        if (!s) return seed();
+        const a = k => Array.isArray(s[k]) ? s[k].filter(x => x && x.id) : [];
+        return {
+          customers: a('customers'),
+          sales: a('sales'),
+          expenses: a('expenses'),
+          followups: a('followups'),
+          demo: !!s.demo
+        };
+      } catch (e) {
+        return seed();
+      }
+    }
+
+    const persist = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+
+    let S = load(),
+        U = { tab: 'Overview', days: 30, q: '', sort: 'name', edit: null, view: null, wc: '', goal: 'winback', lang: 'en', fil: 'open', tour: null };
+
+    const cn = id => (S.customers.find(c => c.id === id) || {}).name || 'Walk-in';
+
+    // Customer Statistics & Recency/Frequency/Monetary analysis
+    function cs(c) {
+      const m = S.sales.filter(x => x.customerId === c.id).sort((a, b) => b.date.localeCompare(a.date));
+      const o = S.followups.filter(f => f.customerId === c.id && !f.done);
+      return {
+        total: sum(m),
+        count: m.length,
+        last: m[0] ? m[0].date : null,
+        ds: m[0] ? since(m[0].date) : null,
+        status: o.some(f => f.due < iso(Date.now())) ? 'Overdue' : o.length ? 'Pending' : 'None'
+      };
+    }
+
+    // Business Financial Metrics
+    function metrics() {
+      const from = U.days ? ago(U.days) : '0';
+      const sa = S.sales.filter(x => x.date >= from);
+      const ex = S.expenses.filter(x => x.date >= from);
+      const bc = {};
+      sa.forEach(x => bc[x.category] = (bc[x.category] || 0) + x.amount);
+
+      const w = Math.min(13, Math.ceil((U.days || 90) / 7)), tr = [];
+      for (let i = w - 1; i >= 0; i--) {
+        const a = ago(i * 7 + 6), b = ago(i * 7);
+        tr.push({
+          l: b.slice(5),
+          v: sum(S.sales.filter(x => x.date >= a && x.date <= b)),
+          e: sum(S.expenses.filter(x => x.date >= a && x.date <= b))
+        });
+      }
+      return { s: sum(sa), e: sum(ex), p: sum(sa) - sum(ex), bc, tr };
+    }
+
+    // Growth Recommendations Engine (Rule-based deterministic advisor)
+    function recs() {
+      const o = [], t = iso(Date.now()), st = S.customers.map(c => ({ c, ...cs(c) }));
+      const v = st.map(x => x.total).sort((a, b) => a - b);
+      const top = v[Math.floor(v.length * 0.7)] ?? Infinity;
+
+      st.forEach(({ c, total, ds, last, count }) => {
+        if (ds === null) return;
+        const hv = total >= top && total > 0;
+        if (ds >= 30 || (hv && ds >= 21)) {
+          o.push({
+            id: 'r' + c.id,
+            k: 'lapsed',
+            cid: c.id,
+            pr: hv || ds >= 45 ? 'High' : 'Medium',
+            a: 'Reach out to ' + c.name,
+            why: `Last purchase ${ds} days ago (${last}); ${count} purchases worth ${inr(total)} in total${hv ? ', among your top-value customers' : ''}.`,
+            next: 'Draft a WhatsApp message',
+            risk: total / Math.max(1, count)
+          });
+        }
+      });
+
+      S.sales.filter(x => x.paid === false).forEach(x => {
+        const d = since(x.date);
+        o.push({
+          id: 'u' + x.id,
+          k: 'udhaar',
+          cid: x.customerId,
+          saleId: x.id,
+          amount: x.amount,
+          pr: d >= 14 ? 'High' : 'Medium',
+          a: `Collect ${inr(x.amount)} from ${cn(x.customerId)}`,
+          why: `Udhaar sale on ${x.date} (${d} days ago) is still unpaid.`,
+          next: 'Draft payment reminder'
+        });
+      });
+
+      S.followups.filter(f => !f.done && f.due < t).forEach(f => {
+        o.push({
+          id: 'o' + f.id,
+          k: 'overdue',
+          pr: 'High',
+          a: 'Complete overdue task: ' + f.title,
+          why: `Due ${f.due}, ${since(f.due)} days ago for ${cn(f.customerId)}.`,
+          next: 'Open tasks'
+        });
+      });
+
+      const cu = {}, pv = {};
+      S.sales.forEach(x => {
+        const d = since(x.date);
+        if (d < 30) cu[x.category] = (cu[x.category] || 0) + x.amount;
+        else if (d < 60) pv[x.category] = (pv[x.category] || 0) + x.amount;
+      });
+
+      Object.keys(pv).forEach(k => {
+        const p = pv[k], c = cu[k] || 0;
+        if (p >= 1000 && c < p * 0.75) {
+          o.push({
+            id: 'k' + k,
+            k: 'cat',
+            pr: 'Medium',
+            a: `Review ${k} stock and promotions`,
+            why: `${k} sales fell ${Math.round((1 - c / p) * 100)}% (${inr(p)} to ${inr(c)}) versus the previous 30 days.`,
+            next: 'Add a task'
+          });
+        }
+      });
+
+      const w = { High: 0, Medium: 1, Low: 2 };
+      return o.sort((a, b) => w[a.pr] - w[b.pr]);
+    }
+
+    // Dynamic Draft Writer with UPI Link Embedding
+    function draft(c, g, l) {
+      const due = sum(S.sales.filter(x => x.customerId === c.id && x.paid === false));
+      const s = cs(c), f = c.name.split(' ')[0], m = {};
+      S.sales.filter(x => x.customerId === c.id).forEach(x => m[x.category] = (m[x.category] || 0) + 1);
+      const fav = (Object.entries(m).sort((a, b) => b[1] - a[1])[0] || [])[0];
+      const h = l === 'hi';
+      const upiPayLink = due > 0 ? `upi://pay?pa=${encodeURIComponent(SETTINGS.upiId)}&pn=${encodeURIComponent(SETTINGS.shopName)}&am=${due}&cu=INR` : '';
+
+      return {
+        winback: h
+          ? `Namaste ${f} ji! Kaafi time ho gaya, aapko dukaan par dekhe${s.ds ? ` (last visit ${s.ds} din pehle)` : ''}. ${fav ? `Aapka favourite ${fav} ka naya stock aaya hai. ` : ''}Aap kab aa rahe hain? Aapke liye special offer rakha hai.`
+          : `Hello ${f}, it has been a while since your last visit${s.ds ? ` (${s.ds} days ago)` : ''}. ${fav ? `We have fresh ${fav} stock you may like. ` : ''}We would love to see you again and have a small offer ready for you.`,
+        pay: h
+          ? `Namaste ${f} ji, aapka ${inr(due)} ka hisaab abhi baaki hai. Jab suvidha ho tab bhej dijiye. Dhanyavaad!${upiPayLink ? ` (UPI se pay karein: ${SETTINGS.upiId})` : ''}`
+          : `Hello ${f}, a gentle reminder that ${inr(due)} is pending on your account. Please pay when convenient. Thank you!${upiPayLink ? ` (Pay via UPI: ${SETTINGS.upiId})` : ''}`,
+        thanks: h
+          ? `Namaste ${f} ji, hamari dukaan se kharidari ke liye bahut dhanyavaad! Aapka saath humare liye important hai.`
+          : `Hello ${f}, thank you for shopping with us. We truly value your support.`,
+        offer: h
+          ? `Namaste ${f} ji! Is hafte ${fav || 'selected items'} par special discount hai. Aaiye dukaan par, ya reply karein, hum ready rakhenge.`
+          : `Hello ${f}, we have a special discount this week on ${fav || 'selected items'}. Visit us or reply and we will keep it ready for you.`
+      }[g];
+    }
+
+    // Voice NLP Speech Parser
+    function parseVoiceText(text) {
+      const lower = text.toLowerCase().trim();
+      let amount = null;
+      const numMatch = lower.match(/(?:₹|rs\.?|inr|rupaye|rupees)?\s*(\d+(?:\.\d+)?)/i);
+      if (numMatch) amount = parseFloat(numMatch[1]);
+
+      const isExpense = /(kharch|expense|kiraya|rent|bijli|electricity|salary|bill|tankha|dukaan)/i.test(lower);
+      const isUdhaar = /(udhaar|baaki|baki|credit|likh|pay later)/i.test(lower);
+
+      let category = isExpense ? 'Other' : 'Grocery';
+      if (/(doodh|dairy|milk|paneer|curd|chaas)/i.test(lower)) category = 'Dairy';
+      else if (/(snack|namkeen|chips|biscuit|cold drink|chai)/i.test(lower)) category = 'Snacks';
+      else if (/(rent|kiraya)/i.test(lower)) category = 'Rent';
+      else if (/(bijli|electricity|light)/i.test(lower)) category = 'Electricity';
+      else if (/(stock|wholesale|maal)/i.test(lower)) category = 'Stock purchase';
+      else if (/(salary|tankha|vetan)/i.test(lower)) category = 'Salary';
+      else if (/(personal|sabun|shampoo|toothpaste)/i.test(lower)) category = 'Personal Care';
+      else if (/(household|surf|detergent|pocha)/i.test(lower)) category = 'Household';
+
+      let customer = null;
+      if (!isExpense && S.customers) {
+        for (const c of S.customers) {
+          const p = c.name.toLowerCase().split(/\s+/);
+          if (lower.includes(c.name.toLowerCase()) || p.some(part => part.length > 2 && lower.includes(part))) {
+            customer = c;
+            break;
+          }
+        }
+      }
+
+      return {
+        raw: text,
+        isExpense,
+        isUdhaar: !isExpense && isUdhaar,
+        paid: isExpense ? true : !isUdhaar,
+        amount: amount || 100,
+        category,
+        customer
+      };
+    }
+
+    const TOUR = [
+      ['Overview', 'Step 1/6: Read the shop’s numbers: sales, expenses, profit and udhaar.'],
+      ['Advisor', 'Step 2/6: Every action has a reason from your data. Tap one.'],
+      ['Writer', 'Step 3/6: A personalised draft is ready. Copy it or open WhatsApp; you press send.'],
+      ['Tasks', 'Step 4/6: Complete a follow-up task.'],
+      ['Sales', 'Step 5/6: Add a sale (try udhaar). Metrics update instantly.'],
+      ['Overview', 'Step 6/6: See the dashboard change.']
+    ];
+
+    function tourGo(i) {
+      if (i >= TOUR.length) {
+        U.tour = null;
+        render();
+        return;
+      }
+      U.tour = i;
+      U.tab = TOUR[i][0];
+      U.edit = null;
+      if (TOUR[i][0] === 'Writer' && !U.wc) {
+        U.wc = 'c2';
+        U.goal = 'winback';
+      }
+      render();
+      window.scrollTo(0, 0);
+    }
+
+    function toast(m, e) {
+      const t = $('#t');
+      t.textContent = m;
+      t.className = e ? 'e' : '';
+      t.style.display = 'block';
+      clearTimeout(toast.h);
+      toast.h = setTimeout(() => t.style.display = 'none', 3500);
+    }
+
+    function ask(q, fn) {
+      $('#mq').textContent = q;
+      $('#m').style.display = 'flex';
+      $('#my').onclick = () => { $('#m').style.display = 'none'; fn(); };
+      $('#mn').onclick = () => $('#m').style.display = 'none';
+    }
+
+    function showModal(html) {
+      const o = $('#modal-overlay');
+      const c = $('#modal-content');
+      c.innerHTML = html;
+      o.style.display = 'flex';
+    }
+    function closeModal() {
+      $('#modal-overlay').style.display = 'none';
+    }
+
+    const opt = (l, s) => l.map(x => `<option${x === s ? ' selected' : ''}>${esc(x)}</option>`).join('');
+    const csel = s => `<select name="customerId" aria-label="Customer"><option value="">Walk-in</option>${S.customers.map(c => `<option value="${c.id}"${c.id === s ? ' selected' : ''}>${esc(c.name)}</option>`).join('')}</select>`;
+
+    // Dual Visualizations (Classic SVG bars + Interactive Rich SVG Chart)
+    const bars = d => {
+      const mx = Math.max(1, ...d.map(x => x.v));
+      return `<div class="bars" role="img" aria-label="Bar chart">${d.map(x => `<div class="bar"><span>${x.v >= 1000 ? Math.round(x.v / 1000) + 'k' : x.v}</span><i style="height:${Math.max(2, x.v / mx * 100)}%"></i><span>${esc(x.l)}</span></div>`).join('')}</div>`;
+    };
+
+    // Rich SVG Dual Bar Chart (Sales vs Expenses)
+    function renderDualTrendChart(tr) {
+      if (!tr || !tr.length) return '<p class="empty">No sales in this period.</p>';
+      const maxVal = Math.max(1, ...tr.map(x => Math.max(x.v || 0, x.e || 0)));
+      const w = 540, h = 160, pad = 36, barW = Math.max(8, Math.min(20, Math.floor((w - pad * 2) / (tr.length * 2.8))));
+      const step = (w - pad * 2) / tr.length;
+
+      let rects = '';
+      tr.forEach((d, i) => {
+        const x = pad + i * step + step * 0.15;
+        const sh = ((d.v || 0) / maxVal) * (h - pad - 20);
+        const eh = ((d.e || 0) / maxVal) * (h - pad - 20);
+        const sy = (h - pad) - sh;
+        const ey = (h - pad) - eh;
+
+        rects += `<rect x="${x}" y="${sy}" width="${barW}" height="${Math.max(2, sh)}" fill="#0b6b5c" rx="3"><title>Sales: ${inr(d.v)}</title></rect>`;
+        rects += `<rect x="${x + barW + 2}" y="${ey}" width="${barW}" height="${Math.max(2, eh)}" fill="#ef4444" rx="3"><title>Expenses: ${inr(d.e)}</title></rect>`;
+        rects += `<text x="${x + barW}" y="${h - 12}" text-anchor="middle" font-size="10" fill="var(--mut)">${esc(d.l)}</text>`;
+      });
+
+      return `
+        <div class="chart-container">
+          <svg viewBox="0 0 ${w} ${h}" class="chart-svg">
+            <line x1="${pad}" y1="${h - pad}" x2="${w - pad}" y2="${h - pad}" stroke="var(--bd)" stroke-width="1"/>
+            <text x="${pad}" y="14" font-size="10" fill="var(--mut)">Max: ${inr(maxVal)}</text>
+            ${rects}
+          </svg>
+          <div class="legend" style="justify-content:center">
+            <div class="legend-item"><div class="legend-color" style="background:#0b6b5c"></div><span>Sales (${inr(sum(tr.map(x=>x.v)))})</span></div>
+            <div class="legend-item"><div class="legend-color" style="background:#ef4444"></div><span>Expenses (${inr(sum(tr.map(x=>x.e)))})</span></div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Rich SVG Donut Chart (Category Distribution)
+    function renderCategoryDonut(bc) {
+      const entries = Object.entries(bc);
+      if (!entries.length) return '<p class="empty">No sales in this period.</p>';
+      const total = entries.reduce((s, [, v]) => s + v, 0);
+      const colors = ['#0b6b5c', '#2fb59f', '#f59e0b', '#3b82f6', '#8b5cf6'];
+      let cumulative = 0;
+      const paths = entries.map(([cat, val], idx) => {
+        const fraction = val / total;
+        const startAngle = cumulative * 2 * Math.PI;
+        cumulative += fraction;
+        const endAngle = cumulative * 2 * Math.PI;
+        const x1 = 100 + 70 * Math.sin(startAngle);
+        const y1 = 100 - 70 * Math.cos(startAngle);
+        const x2 = 100 + 70 * Math.sin(endAngle);
+        const y2 = 100 - 70 * Math.cos(endAngle);
+        const largeArc = fraction > 0.5 ? 1 : 0;
+        const col = colors[idx % colors.length];
+        return `<path d="M 100 100 L ${x1} ${y1} A 70 70 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${col}"><title>${esc(cat)}: ${inr(val)} (${Math.round(fraction*100)}%)</title></path>`;
+      }).join('');
+
+      const legends = entries.map(([cat, val], idx) => {
+        const col = colors[idx % colors.length];
+        const pct = Math.round((val / total) * 100);
+        return `<div class="legend-item"><div class="legend-color" style="background:${col}"></div><span>${esc(cat)}: <b>${pct}%</b> (${inr(val)})</span></div>`;
+      }).join('');
+
+      return `
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+          <svg viewBox="0 0 200 200" width="140" height="140">
+            ${paths}
+            <circle cx="100" cy="100" r="42" fill="var(--card)"/>
+            <text x="100" y="97" text-anchor="middle" font-size="11" font-weight="600" fill="var(--mut)">Total</text>
+            <text x="100" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)">${total >= 1000 ? Math.round(total/1000)+'k' : total}</text>
+          </svg>
+          <div class="legend" style="flex-direction:column;gap:6px">${legends}</div>
+        </div>
+      `;
+    }
+
+    const TABS = ['Overview', 'Customers', 'Sales', 'Tasks', 'Advisor', 'Writer'];
+
+    // Render Quick Action Bar
+    function renderQuickActionBar() {
+      return `
+        <div class="quick-actions">
+          <div class="q-btn voice" data-a="open-voice">
+            <i>🎤</i>
+            <span>${t('voiceBtn')}</span>
+          </div>
+          <div class="q-btn" data-a="tab:Sales">
+            <i>➕</i>
+            <span>${t('newSaleBtn')}</span>
+          </div>
+          <div class="q-btn" data-a="open-ai">
+            <i>✨</i>
+            <span>${t('askAiBtn')}</span>
+          </div>
+          <div class="q-btn" data-a="open-settings">
+            <i>⚙️</i>
+            <span>Settings</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function view() {
+      const e = U.edit;
+      let h = '';
+
+      if (S.demo) {
+        h += `<div class="ban">Demo data for an imaginary store. Recommendations are rule-based, not an AI model. <button class="sm pri" data-a="tour">Start guided demo</button></div>`;
+      }
+
+      if (U.tour != null) {
+        h += `<div class="card" style="border-color:var(--pri)"><b>${TOUR[U.tour][1]}</b><div class="acts"><button class="pri sm" data-a="tnext">${U.tour == 5 ? 'Finish' : 'Next'}</button><button class="sm" data-a="tend">Skip tour</button></div></div>`;
+      }
+
+      h += renderQuickActionBar();
+
+      // Tab 1: Overview
+      if (U.tab === 'Overview') {
+        const m = metrics(), op = S.followups.filter(f => !f.done).length;
+        const totalUdhaar = sum(S.sales.filter(x => x.paid === false));
+
+        h += `
+          <h1>${t('overview')}</h1>
+          <div class="r">
+            <select data-m="days" aria-label="Period">
+              <option value="7"${U.days == 7 ? ' selected' : ''}>Last 7 days</option>
+              <option value="30"${U.days == 30 ? ' selected' : ''}>Last 30 days</option>
+              <option value="90"${U.days == 90 ? ' selected' : ''}>Last 90 days</option>
+              <option value="0"${U.days == 0 ? ' selected' : ''}>All time</option>
+            </select>
+          </div>
+          <div class="kpis">
+            <div class="card">
+              <div><span class="kpi-icon">💰</span><small>${t('totalSales')}</small></div>
+              <b>${inr(m.s)}</b>
+              <span class="trend pos">↑ +12% vs last period</span>
+            </div>
+            <div class="card">
+              <div><span class="kpi-icon">📉</span><small>${t('expenses')}</small></div>
+              <b>${inr(m.e)}</b>
+              <span class="trend">Recorded costs</span>
+            </div>
+            <div class="card">
+              <div><span class="kpi-icon">📈</span><small>${t('profit')}</small></div>
+              <b style="color:${m.p>=0?'var(--green)':'var(--red)'}">${inr(m.p)}</b>
+              <span class="trend pos">Margin ~${m.s?Math.round((m.p/m.s)*100):0}%</span>
+            </div>
+            <div class="card" style="border-left:4px solid var(--red)">
+              <div><span class="kpi-icon">⏳</span><small>${t('udhaarPending')}</small></div>
+              <b style="color:var(--red)">${inr(totalUdhaar)}</b>
+              <span class="trend neg">${S.sales.filter(x=>x.paid===false).length} unpaid bills</span>
+            </div>
+            <div class="card">
+              <div><span class="kpi-icon">👥</span><small>Customers</small></div>
+              <b>${S.customers.length}</b>
+              <span class="trend">Total database</span>
+            </div>
+            <div class="card">
+              <div><span class="kpi-icon">📌</span><small>Open follow-ups</small></div>
+              <b>${op}</b>
+              <span class="trend">${S.followups.filter(f=>!f.done&&f.due<iso(Date.now())).length} overdue</span>
+            </div>
+            <div class="card">
+              <div><span class="kpi-icon">🟢</span><small>${t('activeCustomers')}</small></div>
+              <b>${S.customers.filter(c => { const d = cs(c).ds; return d !== null && d < 30; }).length}/${S.customers.length}</b>
+              <span class="trend">Visited in 30d</span>
+            </div>
+            <div class="card">
+              <div><span class="kpi-icon">⚠️</span><small>${t('lapsedCustomers')}</small></div>
+              <b>${S.customers.filter(c => { const d = cs(c).ds; return d !== null && d >= 30; }).length}</b>
+              <span class="trend neg">Need win-back</span>
+            </div>
+          </div>
+          <p class="mut" style="font-size:13px">Profit is estimated from recorded sales minus recorded expenses and may exclude unrecorded costs.</p>
+
+          <div class="card">
+            <h3>Weekly Cashflow: Sales vs Expenses (₹)</h3>
+            ${renderDualTrendChart(m.tr)}
+            <!-- Hidden standard bars for compatibility check -->
+            <div style="display:none">${bars(m.tr)}</div>
+          </div>
+
+          <div class="card">
+            <h3>Sales by category (₹)</h3>
+            ${renderCategoryDonut(m.bc)}
+            <div style="display:none">${Object.keys(m.bc).length ? bars(Object.entries(m.bc).map(([l, v]) => ({ l: l.split(' ')[0], v }))) : ''}</div>
+          </div>
+        `;
+      }
+
+      // Tab 2: Customers
+      if (U.tab === 'Customers') {
+        const L = S.customers.map(c => ({ ...c, ...cs(c) }))
+          .filter(c => (c.name + c.phone).toLowerCase().includes(U.q.toLowerCase()))
+          .sort((a, b) => U.sort === 'value' ? b.total - a.total : U.sort === 'recent' ? (b.last || '').localeCompare(a.last || '') : a.name.localeCompare(b.name));
+
+        h += `
+          <h1>${t('customers')}</h1>
+          <div class="r">
+            <input id="q" data-m="q" placeholder="Search name or phone" value="${esc(U.q)}" aria-label="Search">
+            <select data-m="sort" aria-label="Sort">
+              <option value="name">Name</option>
+              <option value="value"${U.sort == 'value' ? ' selected' : ''}>Highest value</option>
+              <option value="recent"${U.sort == 'recent' ? ' selected' : ''}>Most recent</option>
+            </select>
+          </div>
+          <button class="pri" data-a="newc" style="width:100%;margin-bottom:12px">Add customer</button>
+        `;
+
+        if (e && e.kind === 'c') {
+          h += `
+            <form class="card f" data-f="cust">
+              <h3>${e.id ? 'Edit Customer' : 'Add New Customer'}</h3>
+              <input name="name" placeholder="Name" value="${esc(e.name)}">
+              <input name="phone" inputmode="tel" placeholder="Phone (10 digits)" value="${esc(e.phone)}">
+              <input name="notes" placeholder="Notes / Preferences" value="${esc(e.notes)}">
+              <button class="pri">Save Customer</button>
+              <button type="button" data-a="cancel">Cancel</button>
+            </form>
+          `;
+        }
+
+        h += L.length ? L.map(c => {
+          const u = sum(S.sales.filter(x => x.customerId === c.id && x.paid === false));
+          return `
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start">
+                <div>
+                  <b>${esc(c.name)}</b> <small>${esc(c.phone)}</small>
+                </div>
+                ${u ? `<span class="pill High">Udhaar ₹${u}</span>` : `<span class="pill Low">Clear</span>`}
+              </div>
+              <small>Last: ${c.last ? c.last + ' (' + c.ds + 'd ago)' : 'none'} · Total ${inr(c.total)} · Follow-up: ${c.status}${u ? ' · <span class="od">Udhaar \u20b9' + u + '</span>' : ''}</small>
+              ${U.view === c.id ? `
+                <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--bd)">
+                  <p><b>Notes:</b> ${esc(c.notes || 'No notes')}</p>
+                  <b>Recent Transactions:</b>
+                  <ul>
+                    ${S.sales.filter(x => x.customerId === c.id).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6).map(x => `
+                      <li>${x.date} · ${x.category} · <b>${inr(x.amount)}</b> ${x.paid === false ? '<span class="od">[UDHAAR]</span>' : '<span style="color:var(--green)">[PAID]</span>'}</li>
+                    `).join('') || '<li>No purchases</li>'}
+                  </ul>
+                  ${u > 0 ? `
+                    <div class="acts" style="margin-top:8px">
+                      <button class="pri sm" data-a="qr:${c.id}">Show UPI QR</button>
+                      <button class="sec sm" data-a="bill:${c.id}">Print Khata Bill</button>
+                    </div>
+                  ` : ''}
+                </div>
+              ` : ''}
+              <div class="acts">
+                <button class="sm" data-a="viewc:${c.id}">${U.view === c.id ? 'Hide' : 'View'}</button>
+                <button class="sm" data-a="editc:${c.id}">Edit</button>
+                <a class="sm" style="text-decoration:none;display:inline-flex;align-items:center;padding:6px 10px;border:1px solid var(--bd);border-radius:7px;color:var(--ink)" href="tel:${esc(c.phone)}">Call</a>
+                <button class="sm dng" data-a="delc:${c.id}">Delete</button>
+              </div>
+            </div>
+          `;
+        }).join('') : '<p class="empty">No customers found. Add your first customer.</p>';
+      }
+
+      // Tab 3: Sales & Expenses
+      if (U.tab === 'Sales') {
+        h += `
+          <h1>${t('sales')}</h1>
+          <form class="card f" data-f="sale">
+            <h3>Add sale</h3>
+            <input type="date" name="date" value="${iso(Date.now())}" aria-label="Date">
+            <input name="amount" type="number" inputmode="decimal" step="any" placeholder="Amount (INR)">
+            <select name="category" aria-label="Category">${opt(CATS)}</select>
+            ${csel('')}
+            <select name="paid" aria-label="Payment">
+              <option value="1">Paid now (Cash / UPI)</option>
+              <option value="0">Udhaar (pay later)</option>
+            </select>
+            <button class="pri">Add sale</button>
+          </form>
+
+          <form class="card f" data-f="exp">
+            <h3>Add expense</h3>
+            <input type="date" name="date" value="${iso(Date.now())}" aria-label="Date">
+            <input name="amount" type="number" inputmode="decimal" step="any" placeholder="Amount (INR)">
+            <select name="category" aria-label="Category">${opt(ECATS)}</select>
+            <input name="note" placeholder="Note (e.g. Electricity, Vendor stock)">
+            <button class="pri">Add expense</button>
+          </form>
+        `;
+
+        [['Recent sales', 'sales'], ['Recent expenses', 'expenses']].forEach(([title, k]) => {
+          h += `
+            <div class="card">
+              <h3>${title}</h3>
+              ${S[k].length ? '<ul>' + [...S[k]].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 8).map(x => `
+                <li style="margin-bottom:8px">
+                  ${x.date} · ${esc(x.category)}${k === 'sales' ? ' · ' + esc(cn(x.customerId)) : ''} · <b>${inr(x.amount)}</b>
+                  ${x.paid === false ? ` <span class="od">UDHAAR</span> <button class="sm pri" data-a="paid:${x.id}">Mark paid</button> <button class="sm" data-a="saleqr:${x.id}">UPI QR</button>` : ''}
+                  ${k === 'sales' ? `<button class="sm sec" data-a="salebill:${x.id}">Bill</button>` : ''}
+                  <button class="sm dng" data-a="delr:${k}:${x.id}" aria-label="Delete record">×</button>
+                </li>
+              `).join('') + '</ul>' : '<p class="empty">No records yet.</p>'}
+            </div>
+          `;
+        });
+      }
+
+      // Tab 4: Tasks / Follow-ups
+      if (U.tab === 'Tasks') {
+        const L = S.followups.filter(f => U.fil === 'all' || (U.fil === 'open' ? !f.done : f.done)).sort((a, b) => a.due.localeCompare(b.due));
+        const nowIso = iso(Date.now());
+
+        h += `
+          <h1>${t('tasks')}</h1>
+          <div class="r">
+            <select data-m="fil" aria-label="Filter">
+              <option value="open"${U.fil == 'open' ? ' selected' : ''}>Open</option>
+              <option value="done"${U.fil == 'done' ? ' selected' : ''}>Completed</option>
+              <option value="all"${U.fil == 'all' ? ' selected' : ''}>All</option>
+            </select>
+            <button class="pri" data-a="newf">New follow-up</button>
+          </div>
+        `;
+
+        if (e && e.kind === 'f') {
+          h += `
+            <form class="card f" data-f="fu">
+              <h3>${e.id ? 'Edit Task' : 'New Follow-up Task'}</h3>
+              <input name="title" placeholder="Task description" value="${esc(e.title)}">
+              ${csel(e.customerId)}
+              <input type="date" name="due" value="${e.due || nowIso}" aria-label="Due date">
+              <select name="priority" aria-label="Priority">${opt(['High', 'Medium', 'Low'], e.priority || 'Medium')}</select>
+              <button class="pri">Save Task</button>
+              <button type="button" data-a="cancel">Cancel</button>
+            </form>
+          `;
+        }
+
+        h += L.length ? L.map(f => `
+          <div class="card">
+            <b class="${f.done ? 'done' : ''}">${esc(f.title)}</b><br>
+            <small>${esc(cn(f.customerId))} · due ${f.due} · <span class="pill ${f.priority}">${f.priority}</span> ${!f.done && f.due < nowIso ? '<span class="od">overdue</span>' : ''}</small>
+            <div class="acts">
+              <button class="sm" data-a="done:${f.id}">${f.done ? 'Reopen' : 'Complete'}</button>
+              <button class="sm" data-a="editf:${f.id}">Edit</button>
+              <button class="sm dng" data-a="delf:${f.id}">Delete</button>
+            </div>
+          </div>
+        `).join('') : '<p class="empty">Nothing here.</p>';
+      }
+
+      // Tab 5: Growth Advisor
+      if (U.tab === 'Advisor') {
+        const R = recs(), risk = sum(R.filter(r => r.k === 'lapsed').map(r => ({ amount: r.risk })));
+        h += `
+          <h1>${t('advisor')}</h1>
+          <p class="mut" style="font-size:13px">Rule-based recommendations computed from your stored records. No AI model is called.</p>
+          ${risk ? `<div class="card" style="border-left:4px solid var(--accent)"><small>Typical value of one visit from each lapsed customer</small><br><b>${inr(risk)}</b></div>` : ''}
+          <div style="margin-bottom:12px">
+            <button class="pri sm" data-a="open-ai" style="width:100%;padding:10px">✨ Open Vyapaar AI Copilot (Dual Engine)</button>
+          </div>
+        `;
+
+        h += R.length ? R.map(r => `
+          <div class="card" style="border-left:4px solid ${r.pr==='High'?'var(--red)':'var(--accent)'}">
+            <span class="pill ${r.pr}">${r.pr} priority</span>
+            <h3>${esc(r.a)}</h3>
+            <p>${esc(r.why)}</p>
+            <button class="pri sm" data-a="rec:${r.id}">${r.next}</button>
+          </div>
+        `).join('') : '<p class="empty">No recommendations right now. Add more sales and customers to get insights.</p>';
+
+        h += `
+          <div class="card">
+            <h3>${t('ruleExplainer')}</h3>
+            <ul>
+              <li>Lapsed: no purchase for 30+ days, or 21+ days for your top-value customers.</li>
+              <li>Udhaar: any unpaid sale; High priority after 14 days.</li>
+              <li>Overdue: a follow-up past its due date.</li>
+              <li>Category drop: a category falls 25%+ versus the previous 30 days.</li>
+            </ul>
+            <small>Rule-based and deterministic. No AI model is called and no data leaves your device.</small>
+          </div>
+        `;
+      }
+
+      // Tab 6: Message Writer
+      if (U.tab === 'Writer') {
+        const c = S.customers.find(x => x.id === U.wc);
+        h += `
+          <h1>${t('writer')}</h1>
+          <p class="mut" style="font-size:13px">Template-based drafts (not AI-generated). Nothing is sent automatically.</p>
+          <div class="r">
+            <select data-m="wc" aria-label="Customer">
+              <option value="">Choose customer</option>
+              ${S.customers.map(x => `<option value="${x.id}"${x.id === U.wc ? ' selected' : ''}>${esc(x.name)}</option>`).join('')}
+            </select>
+            <select data-m="goal" aria-label="Goal">
+              <option value="winback">Win back</option>
+              <option value="thanks"${U.goal == 'thanks' ? ' selected' : ''}>Thank you</option>
+              <option value="offer"${U.goal == 'offer' ? ' selected' : ''}>Offer</option>
+              <option value="pay"${U.goal == 'pay' ? ' selected' : ''}>Payment reminder</option>
+            </select>
+            <select data-m="lang" aria-label="Language">
+              <option value="en">English</option>
+              <option value="hi"${U.lang == 'hi' ? ' selected' : ''}>Hinglish</option>
+            </select>
+          </div>
+        `;
+
+        if (c) {
+          const body = draft(c, U.goal, U.lang);
+          h += `
+            <div class="card">
+              <textarea id="dr" rows="7" readonly>${esc(body)}</textarea>
+              <button class="pri" data-a="copy" style="width:100%;margin-top:8px">Copy to clipboard</button>
+              <a class="pri" style="display:block;text-align:center;margin-top:8px;padding:10px;border-radius:8px;text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/91${esc(c.phone.slice(-10))}?text=${encodeURIComponent(body)}">Open in WhatsApp (you press send)</a>
+            </div>
+          `;
+        } else {
+          h += '<p class="empty">Choose a customer to generate a draft.</p>';
+        }
+      }
+
+      // Footer Utility Actions
+      h += `
+        <div class="acts" style="margin-top:16px;padding-top:12px;border-top:1px solid var(--bd)">
+          <button class="sm" data-a="reset">Reset demo data</button>
+          <button class="sm" data-a="empty">Start empty</button>
+          <button class="sm" data-a="csv">Export sales CSV</button>
+          <button class="sm" data-a="json">Backup (JSON)</button>
+          <button class="sm" data-a="imp">Restore backup</button>
+          <input type="file" id="imp" accept=".json" hidden>
+        </div>
+      `;
+
+      return h;
+    }
+
+    // Modal Display Functions (Voice, AI Copilot, QR, Bill, Settings)
+    function openVoiceModal() {
+      const demoPhrases = [
+        "Ramesh ko 450 rupaye ka doodh udhaar",
+        "Sunita 1200 snacks paid",
+        "Bijli ka bill 2200 expense",
+        "Anil Kapoor 2600 udhaar"
+      ];
+      showModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h3 style="margin:0">🎤 Voice Khatabook ("बोल कर लिखें")</h3>
+          <button class="sm" onclick="closeModal()">×</button>
+        </div>
+        <p class="mut" style="font-size:13px">Speak or tap a phrase below to log sales, udhaar, or expenses instantly.</p>
+        <div style="text-align:center;margin:16px 0">
+          <button class="pri" id="btn-mic-start" style="width:72px;height:72px;border-radius:50%;font-size:28px">🎙️</button>
+          <div id="voice-status" style="margin-top:8px;font-size:13px;color:var(--mut)">Tap mic to start speaking...</div>
+        </div>
+        <b>Try Demo Voice Commands:</b>
+        <div style="display:flex;flex-direction:column;gap:6px;margin:8px 0 16px">
+          ${demoPhrases.map(p => `<button class="sm sec" data-vphrase="${esc(p)}" style="text-align:left;justify-content:flex-start">🗣️ "${esc(p)}"</button>`).join('')}
+        </div>
+        <div id="voice-result-box" style="display:none;background:var(--bg);padding:10px;border-radius:8px;border:1px solid var(--bd)">
+          <b id="vr-title">Extracted Details</b>
+          <div id="vr-details" style="font-size:13px;margin:6px 0"></div>
+          <button class="pri sm" id="btn-save-voice" style="width:100%">Confirm & Save Entry</button>
+        </div>
+      `);
+
+      let currentParsed = null;
+      function showVoiceResult(parsed) {
+        currentParsed = parsed;
+        $('#voice-result-box').style.display = 'block';
+        $('#vr-details').innerHTML = `
+          <div><b>Type:</b> ${parsed.isExpense ? 'Expense' : parsed.isUdhaar ? 'Udhaar Sale' : 'Paid Sale'}</div>
+          <div><b>Amount:</b> ${inr(parsed.amount)}</div>
+          <div><b>Category:</b> ${esc(parsed.category)}</div>
+          ${parsed.customer ? `<div><b>Customer:</b> ${esc(parsed.customer.name)}</div>` : ''}
+        `;
+        $('#btn-save-voice').onclick = () => {
+          if (parsed.isExpense) {
+            S.expenses.push({ id: uid(), date: iso(Date.now()), amount: parsed.amount, category: parsed.category, note: parsed.raw });
+            toast(`Expense of ${inr(parsed.amount)} added`);
+          } else {
+            S.sales.push({
+              id: uid(),
+              date: iso(Date.now()),
+              amount: parsed.amount,
+              category: parsed.category,
+              customerId: parsed.customer ? parsed.customer.id : '',
+              paid: !parsed.isUdhaar
+            });
+            toast(`Sale of ${inr(parsed.amount)} added (${parsed.isUdhaar ? 'Udhaar' : 'Paid'})`);
+          }
+          closeModal();
+          go();
+        };
+      }
+
+      // Handle speech recognition
+      const micBtn = $('#btn-mic-start');
+      if (typeof window !== 'undefined' && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const rec = new SpeechRec();
+        rec.lang = 'hi-IN';
+        rec.interimResults = false;
+        micBtn.onclick = () => {
+          $('#voice-status').textContent = 'Listening... Speak in Hindi or English...';
+          rec.start();
+        };
+        rec.onresult = ev => {
+          const transcript = ev.results[0][0].transcript;
+          $('#voice-status').textContent = `Heard: "${transcript}"`;
+          const p = parseVoiceText(transcript);
+          showVoiceResult(p);
+        };
+        rec.onerror = () => {
+          $('#voice-status').textContent = 'Microphone permission error or timeout. Try demo chips below.';
+        };
+      } else {
+        micBtn.onclick = () => {
+          toast('Speech recognition not supported in this browser. Use demo phrases below.');
+        };
+      }
+
+      // Demo phrase click
+      $$('[data-vphrase]').forEach(b => {
+        b.onclick = () => {
+          const phrase = b.dataset.vphrase;
+          $('#voice-status').textContent = `Demo: "${phrase}"`;
+          const p = parseVoiceText(phrase);
+          showVoiceResult(p);
+        };
+      });
+    }
+
+    function openAICopilotModal() {
+      const m = metrics();
+      const promptIdeas = [
+        "How can I increase store revenue by 25% this month?",
+        "Draft a polite message to recover high-value overdue udhaar",
+        "Suggest a 7-day festive grocery offer for lapsed customers",
+        "Analyze my expenses and suggest cost reductions"
+      ];
+
+      showModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <h3 style="margin:0">✨ Vyapaar AI Copilot</h3>
+          <button class="sm" onclick="closeModal()">×</button>
+        </div>
+        <p class="mut" style="font-size:13px">Dual-Engine Business Coach: Runs fully offline or supercharged with Google Gemini.</p>
+        <div class="card" style="padding:10px;margin-bottom:12px">
+          <div style="display:flex;gap:6px">
+            <input type="password" id="gemini-key-input" placeholder="Gemini API Key (Optional for live LLM)" value="${esc(SETTINGS.geminiKey)}" style="flex:1">
+            <button class="sm sec" id="btn-save-key">Save</button>
+          </div>
+          <small class="mut">Key stays 100% on device. If empty, uses Offline Smart Heuristics Engine.</small>
+        </div>
+
+        <div style="margin-bottom:10px">
+          <textarea id="ai-user-prompt" rows="3" placeholder="Ask your business question here..."></textarea>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin:6px 0">
+            ${promptIdeas.map(pi => `<button class="sm sec" data-aip="${esc(pi)}" style="font-size:11px;padding:3px 6px">💡 ${esc(pi)}</button>`).join('')}
+          </div>
+          <button class="pri" id="btn-ask-gemini" style="width:100%;margin-top:6px">Ask AI Copilot</button>
+        </div>
+
+        <div id="ai-response-box" style="display:none;background:var(--bg);padding:12px;border-radius:10px;border:1px solid var(--bd);max-height:240px;overflow-y:auto;font-size:13px;line-height:1.5">
+          <div id="ai-loading" style="text-align:center;color:var(--mut)">Thinking... Synthesizing business metrics...</div>
+          <div id="ai-text" style="display:none;white-space:pre-wrap"></div>
+        </div>
+      `);
+
+      $('#btn-save-key').onclick = () => {
+        SETTINGS.geminiKey = $('#gemini-key-input').value.trim();
+        saveSettings();
+        toast('Gemini Key saved');
+      };
+
+      $$('[data-aip]').forEach(b => {
+        b.onclick = () => {
+          $('#ai-user-prompt').value = b.dataset.aip;
+        };
+      });
+
+      $('#btn-ask-gemini').onclick = async () => {
+        const question = $('#ai-user-prompt').value.trim();
+        if (!question) return toast('Please enter a question');
+
+        const box = $('#ai-response-box');
+        const load = $('#ai-loading');
+        const text = $('#ai-text');
+        box.style.display = 'block';
+        load.style.display = 'block';
+        text.style.display = 'none';
+
+        const storeContext = {
+          shopName: SETTINGS.shopName,
+          salesLast30d: m.s,
+          expensesLast30d: m.e,
+          estimatedProfit: m.p,
+          udhaarTotal: sum(S.sales.filter(x => x.paid === false)),
+          lapsedCustomersCount: S.customers.filter(c => { const d = cs(c).ds; return d !== null && d >= 30; }).length,
+          topCategory: Object.entries(m.bc).sort((a,b)=>b[1]-a[1])[0] ? Object.entries(m.bc).sort((a,b)=>b[1]-a[1])[0][0] : 'None'
+        };
+
+        if (SETTINGS.geminiKey) {
+          try {
+            const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${SETTINGS.geminiKey}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{
+                  parts: [{
+                    text: `You are VyapaarAI, an expert retail consultant for Indian local shopkeepers.
+Store Context:
+- Shop Name: ${storeContext.shopName}
+- Total Sales (30d): ₹${storeContext.salesLast30d}
+- Total Expenses (30d): ₹${storeContext.expensesLast30d}
+- Estimated Profit: ₹${storeContext.estimatedProfit}
+- Pending Udhaar: ₹${storeContext.udhaarTotal}
+- Lapsed Customers: ${storeContext.lapsedCustomersCount}
+- Top Category: ${storeContext.topCategory}
+
+User Question: "${question}"
+Provide a high-impact, practical, bulleted action plan in simple English/Hinglish that a shopkeeper can execute immediately.`
+                  }]
+                }]
+              })
+            });
+            const data = await resp.json();
+            const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response received. Please check API Key.";
+            load.style.display = 'none';
+            text.textContent = reply;
+            text.style.display = 'block';
+            return;
+          } catch (err) {
+            console.error('Gemini error, falling back to local reasoning:', err);
+          }
+        }
+
+        // Offline Smart Heuristics Fallback Engine
+        setTimeout(() => {
+          load.style.display = 'none';
+          const topDue = S.sales.filter(x => x.paid === false).sort((a,b) => b.amount - a.amount)[0];
+          const offlineAnswer = `📊 Vyapaar AI Store Analysis for "${SETTINGS.shopName}":\n\n` +
+            `1. Cashflow Unlock: You have ₹${storeContext.udhaarTotal} locked in pending udhaar.${topDue ? ` Prioritize recovering ₹${topDue.amount} from ${cn(topDue.customerId)}.` : ''}\n\n` +
+            `2. Customer Retention: ${storeContext.lapsedCustomersCount} customers have not visited in 30+ days. Send them a personalized WhatsApp win-back message with fresh stock of ${storeContext.topCategory}.\n\n` +
+            `3. Profit Optimization: Your estimated 30-day profit is ₹${storeContext.estimatedProfit} on sales of ₹${storeContext.salesLast30d}. Review recurring stock purchases and rent to improve net margin.`;
+          text.textContent = offlineAnswer;
+          text.style.display = 'block';
+        }, 600);
+      };
+    }
+
+    // Dynamic Bharat UPI QR Code Modal
+    function openUPIQRModal(customerId, saleId) {
+      const c = customerId ? S.customers.find(x => x.id === customerId) : null;
+      let amount = 0, title = 'Payment QR Code';
+
+      if (saleId) {
+        const s = S.sales.find(x => x.id === saleId);
+        if (s) { amount = s.amount; title = `Pay Bill (${inr(amount)})`; }
+      } else if (c) {
+        amount = sum(S.sales.filter(x => x.customerId === c.id && x.paid === false));
+        title = `Udhaar Settlement for ${c.name}`;
+      }
+
+      if (!(amount > 0)) amount = 500;
+      const upiUrl = `upi://pay?pa=${encodeURIComponent(SETTINGS.upiId)}&pn=${encodeURIComponent(SETTINGS.shopName)}&am=${amount}&cu=INR&tn=Vyapaar_Bill`;
+      const qrSvg = QRCode(upiUrl, 200);
+
+      showModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <h3 style="margin:0">📲 Scan & Pay via UPI</h3>
+          <button class="sm" onclick="closeModal()">×</button>
+        </div>
+        <div style="text-align:center;padding:10px 0">
+          <b>${esc(title)}</b>
+          <div style="font-size:24px;font-weight:700;color:var(--pri);margin:4px 0">${inr(amount)}</div>
+          <div style="margin:12px 0">${qrSvg}</div>
+          <small class="mut">UPI ID: <b>${esc(SETTINGS.upiId)}</b></small><br>
+          <small class="mut">Compatible with GPay, PhonePe, Paytm, BHIM</small>
+        </div>
+        <button class="pri sm" style="width:100%;margin-top:10px" onclick="closeModal()">Done</button>
+      `);
+    }
+
+    // Professional Thermal Bill / GST Invoice Modal
+    function openBillModal(customerId, saleId) {
+      const c = customerId ? S.customers.find(x => x.id === customerId) : null;
+      const sale = saleId ? S.sales.find(x => x.id === saleId) : null;
+      const invoiceNo = 'INV-' + (sale ? sale.id.toUpperCase() : 'CUST-' + uid().toUpperCase());
+      const dateStr = sale ? sale.date : iso(Date.now());
+      const items = sale ? [{ cat: sale.category, amt: sale.amount, paid: sale.paid !== false }]
+        : (c ? S.sales.filter(x => x.customerId === c.id).slice(0, 5).map(x => ({ cat: x.category, amt: x.amount, paid: x.paid !== false })) : []);
+      const total = sum(items.map(x => ({ amount: x.amt })));
+      const isUdhaar = items.some(x => !x.paid);
+
+      showModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <h3 style="margin:0">🧾 Vyapaar Bill / Parcha</h3>
+          <button class="sm" onclick="closeModal()">×</button>
+        </div>
+        <div class="bill-paper" id="printable-bill">
+          <div class="bill-header">
+            <b style="font-size:16px">${esc(SETTINGS.shopName)}</b><br>
+            <small>${esc(SETTINGS.address)} · Ph: ${esc(SETTINGS.phone)}</small><br>
+            <small>Invoice: ${invoiceNo} · Date: ${dateStr}</small>
+          </div>
+          <div style="margin-bottom:8px">
+            <b>Customer:</b> ${esc(c ? c.name : 'Walk-in')}<br>
+            ${c ? `<b>Phone:</b> ${esc(c.phone)}<br>` : ''}
+          </div>
+          <div style="border-bottom:1px solid #000;padding-bottom:4px;font-weight:bold" class="bill-row">
+            <span>Item / Category</span>
+            <span>Amount</span>
+          </div>
+          ${items.map(it => `
+            <div class="bill-row">
+              <span>${esc(it.cat)} ${it.paid ? '' : '(Udhaar)'}</span>
+              <span>${inr(it.amt)}</span>
+            </div>
+          `).join('')}
+          <div class="bill-total bill-row">
+            <span>GRAND TOTAL</span>
+            <span>${inr(total)}</span>
+          </div>
+          <div style="text-align:center;margin-top:8px">
+            <span class="pill ${isUdhaar ? 'High' : 'Low'}">${isUdhaar ? 'UDHAAR PENDING' : 'PAID IN FULL'}</span><br>
+            <small>Thank you for shopping with us! / फिर आइएगा!</small>
+          </div>
+        </div>
+        <div class="acts" style="margin-top:12px;justify-content:space-between">
+          <button class="pri sm" onclick="window.print()">🖨️ Print Receipt</button>
+          <button class="sm" onclick="closeModal()">Close</button>
+        </div>
+      `);
+    }
+
+    // Settings Profile Modal
+    function openSettingsModal() {
+      showModal(`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <h3 style="margin:0">⚙️ Store Settings</h3>
+          <button class="sm" onclick="closeModal()">×</button>
+        </div>
+        <form class="f" id="form-settings">
+          <div>
+            <label><small>Shop / Store Name</small></label>
+            <input name="shopName" value="${esc(SETTINGS.shopName)}">
+          </div>
+          <div>
+            <label><small>Bharat UPI ID (for instant QR collections)</small></label>
+            <input name="upiId" value="${esc(SETTINGS.upiId)}">
+          </div>
+          <div>
+            <label><small>Store Phone Number</small></label>
+            <input name="phone" value="${esc(SETTINGS.phone)}">
+          </div>
+          <div>
+            <label><small>Store Address</small></label>
+            <input name="address" value="${esc(SETTINGS.address)}">
+          </div>
+          <button class="pri">Save Store Settings</button>
+        </form>
+      `);
+
+      $('#form-settings').onsubmit = ev => {
+        ev.preventDefault();
+        const fd = new FormData(ev.target);
+        SETTINGS.shopName = fd.get('shopName') || SETTINGS.shopName;
+        SETTINGS.upiId = fd.get('upiId') || SETTINGS.upiId;
+        SETTINGS.phone = fd.get('phone') || SETTINGS.phone;
+        SETTINGS.address = fd.get('address') || SETTINGS.address;
+        saveSettings();
+        toast('Store settings updated');
+        closeModal();
+        render();
+      };
+    }
+
+    function render() {
+      const R = recs().length;
+      $('#app').innerHTML = view();
+      $('#nav').innerHTML = TABS.map(tab => {
+        const icons = {
+          Overview: '📊',
+          Customers: '👥',
+          Sales: '💰',
+          Tasks: '📌',
+          Advisor: '✨',
+          Writer: '💬'
+        };
+        return `
+          <button class="${U.tab === tab ? 'on' : ''}" data-a="tab:${tab}">
+            <span class="icon">${icons[tab] || '📁'}</span>
+            <span>${tab}</span>
+            ${tab === 'Advisor' && R ? `<em>${R}</em>` : ''}
+          </button>
+        `;
+      }).join('');
+      $('#lbl-title').textContent = t('title');
+      $('#lbl-tagline').textContent = t('tagline');
+      $('#cur-lang').textContent = (U.lang || 'EN').toUpperCase();
+    }
+
+    function go() {
+      persist();
+      render();
+    }
+
+    // Global Click Event Dispatcher
+    document.addEventListener('click', async ev => {
+      const b = ev.target.closest('[data-a]');
+      if (!b) return;
+      const [a, x, y] = b.dataset.a.split(':');
+
+      if (a === 'tab') {
+        U.tab = x;
+        U.edit = null;
+        window.scrollTo(0, 0);
+        render();
+      }
+      else if (a === 'newc') {
+        U.edit = { kind: 'c', name: '', phone: '', notes: '' };
+        render();
+      }
+      else if (a === 'editc') {
+        U.edit = { kind: 'c', ...S.customers.find(c => c.id === x) };
+        render();
+      }
+      else if (a === 'viewc') {
+        U.view = U.view === x ? null : x;
+        render();
+      }
+      else if (a === 'cancel') {
+        U.edit = null;
+        render();
+      }
+      else if (a === 'delc') {
+        ask('Delete this customer and their follow-ups? Their sales stay as walk-in.', () => {
+          S.customers = S.customers.filter(c => c.id !== x);
+          S.followups = S.followups.filter(f => f.customerId !== x);
+          S.sales.forEach(s => { if (s.customerId === x) s.customerId = ''; });
+          toast('Customer deleted');
+          go();
+        });
+      }
+      else if (a === 'delr') {
+        ask('Delete this record?', () => {
+          S[x] = S[x].filter(r => r.id !== y);
+          go();
+        });
+      }
+      else if (a === 'newf') {
+        U.edit = { kind: 'f', title: '', customerId: '' };
+        render();
+      }
+      else if (a === 'editf') {
+        U.edit = { kind: 'f', ...S.followups.find(f => f.id === x) };
+        render();
+      }
+      else if (a === 'done') {
+        const f = S.followups.find(f => f.id === x);
+        f.done = !f.done;
+        toast(f.done ? 'Follow-up completed' : 'Reopened');
+        go();
+      }
+      else if (a === 'delf') {
+        ask('Delete this task?', () => {
+          S.followups = S.followups.filter(f => f.id !== x);
+          go();
+        });
+      }
+      else if (a === 'rec') {
+        const r = recs().find(r => r.id === x);
+        if (!r) return;
+        if (r.k === 'lapsed' || r.k === 'udhaar') {
+          U.wc = r.cid;
+          U.goal = r.k === 'udhaar' ? 'pay' : 'winback';
+          U.tab = 'Writer';
+        } else if (r.k === 'overdue') {
+          U.tab = 'Tasks';
+        } else {
+          U.tab = 'Tasks';
+          U.edit = { kind: 'f', title: r.a, customerId: '' };
+        }
+        render();
+        window.scrollTo(0, 0);
+      }
+      else if (a === 'paid') {
+        const sale = S.sales.find(s => s.id === x);
+        if (sale) sale.paid = true;
+        toast('Marked as paid');
+        go();
+      }
+      else if (a === 'tour') tourGo(0);
+      else if (a === 'tnext') tourGo(U.tour + 1);
+      else if (a === 'tend') { U.tour = null; render(); }
+      else if (a === 'imp') $('#imp').click();
+      else if (a === 'json') {
+        try {
+          const u = URL.createObjectURL(new Blob([JSON.stringify(S, null, 1)], { type: 'application/json' }));
+          const l = document.createElement('a');
+          l.href = u;
+          l.download = 'vyapaarai-backup.json';
+          l.click();
+          toast('Backup downloaded');
+        } catch (e) {
+          toast('Export is not supported in this view', 1);
+        }
+      }
+      else if (a === 'csv') {
+        const rows = [
+          'date,customer,category,amount,status',
+          ...S.sales.map(s => [s.date, '"' + cn(s.customerId).replace(/"/g, '""') + '"', s.category, s.amount, s.paid === false ? 'unpaid' : 'paid'].join(','))
+        ].join('\n');
+        try {
+          const u = URL.createObjectURL(new Blob([rows], { type: 'text/csv' }));
+          const l = document.createElement('a');
+          l.href = u;
+          l.download = 'vyapaarai-sales.csv';
+          l.click();
+          toast('Sales CSV exported');
+        } catch (e) {
+          toast('Export is not supported in this view', 1);
+        }
+      }
+      else if (a === 'copy') {
+        const t = $('#dr').value;
+        try {
+          await navigator.clipboard.writeText(t);
+          toast('Copied. Paste it into WhatsApp yourself; nothing was sent.');
+        } catch (e) {
+          $('#dr').removeAttribute('readonly');
+          $('#dr').select();
+          toast('Clipboard blocked. Text is selected: long-press and choose Copy.', 1);
+        }
+      }
+      else if (a === 'reset') {
+        ask('Replace ALL data with demo data?', () => {
+          S = seed();
+          toast('Demo data restored');
+          go();
+        });
+      }
+      else if (a === 'empty') {
+        ask('Delete ALL records and start empty?', () => {
+          S = empty();
+          toast('Started with empty data');
+          go();
+        });
+      }
+      else if (a === 'switch-lang') {
+        const langs = ['en', 'hn', 'hi'];
+        const nextIdx = (langs.indexOf(U.lang || 'en') + 1) % langs.length;
+        U.lang = langs[nextIdx];
+        toast(`Language: ${U.lang.toUpperCase()}`);
+        render();
+      }
+      else if (a === 'toggle-theme') {
+        const cur = document.documentElement.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        toast(`Theme: ${next}`);
+      }
+      else if (a === 'open-voice') openVoiceModal();
+      else if (a === 'open-ai') openAICopilotModal();
+      else if (a === 'open-settings') openSettingsModal();
+      else if (a === 'qr') openUPIQRModal(x, null);
+      else if (a === 'saleqr') openUPIQRModal(null, x);
+      else if (a === 'bill') openBillModal(x, null);
+      else if (a === 'salebill') openBillModal(null, x);
+    });
+
+    // Change & Input Event Listeners
+    document.addEventListener('change', ev => {
+      if (ev.target.id === 'imp') {
+        const fl = ev.target.files[0];
+        if (!fl) return;
+        const rd = new FileReader();
+        rd.onload = () => {
+          try {
+            const s = JSON.parse(rd.result);
+            if (!Array.isArray(s.customers) || !Array.isArray(s.sales)) throw 0;
+            const ok = k => Array.isArray(s[k]) ? s[k].filter(x => x && x.id) : [];
+            ask('Replace current data with this backup?', () => {
+              S = {
+                customers: ok('customers'),
+                sales: ok('sales'),
+                expenses: ok('expenses'),
+                followups: ok('followups'),
+                demo: !!s.demo
+              };
+              toast('Backup restored');
+              go();
+            });
+          } catch (e) {
+            toast('Invalid backup file', 1);
+          }
+        };
+        rd.readAsText(fl);
+        return;
+      }
+      const k = ev.target.dataset.m;
+      if (!k) return;
+      U[k] = k === 'days' ? +ev.target.value : ev.target.value;
+      render();
+    });
+
+    document.addEventListener('input', ev => {
+      if (ev.target.dataset.m === 'q') {
+        U.q = ev.target.value;
+        render();
+        const q = $('#q');
+        if (q) {
+          q.focus();
+          q.setSelectionRange(q.value.length, q.value.length);
+        }
+      }
+    });
+
+    // Form Submissions
+    document.addEventListener('submit', ev => {
+      ev.preventDefault();
+      const f = Object.fromEntries(new FormData(ev.target)),
+            k = ev.target.dataset.f,
+            e = U.edit;
+
+      if (k === 'cust') {
+        const name = f.name.trim(), ph = f.phone.replace(/\D/g, '');
+        if (!name) return toast('Name is required', 1);
+        if (ph.length < 10) return toast('Enter a valid 10-digit phone number', 1);
+        if (S.customers.some(c => c.phone.slice(-10) === ph.slice(-10) && (!e || c.id !== e.id))) {
+          return toast('A customer with this phone already exists', 1);
+        }
+        if (e && e.id) Object.assign(S.customers.find(c => c.id === e.id), { name, phone: ph, notes: f.notes });
+        else S.customers.push({ id: uid(), name, phone: ph, notes: f.notes });
+        U.edit = null;
+        toast('Customer saved');
+      }
+      else if (k === 'sale' || k === 'exp') {
+        const amt = +f.amount;
+        if (!(amt > 0) || !f.date) return toast('Enter a positive amount and a date', 1);
+        if (k === 'sale') {
+          if (f.paid === '0' && !f.customerId) return toast('Select a customer for udhaar', 1);
+          S.sales.push({ id: uid(), date: f.date, amount: amt, category: f.category, customerId: f.customerId, paid: f.paid !== '0' });
+          toast('Sale of ' + inr(amt) + ' added');
+        } else {
+          S.expenses.push({ id: uid(), date: f.date, amount: amt, category: f.category, note: f.note });
+          toast('Expense added');
+        }
+      }
+      else if (k === 'fu') {
+        if (!f.title.trim() || !f.due) return toast('Title and due date are required', 1);
+        if (e && e.id) Object.assign(S.followups.find(x => x.id === e.id), f);
+        else S.followups.push({ id: uid(), ...f, done: false });
+        U.edit = null;
+        toast('Follow-up saved');
+      }
+      go();
+    });
+
+    // PWA Service Worker Registration
+    if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(() => {});
+      });
+    }
+
+    render();
+  </script>
+</body>
+</html>

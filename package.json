@@ -1,0 +1,24 @@
+{
+  "name": "vyapaarai",
+  "version": "2.0.0",
+  "description": "VyapaarAI: Next-Gen Offline-First AI Growth Assistant & Voice Khatabook for Indian Local Businesses",
+  "main": "index.html",
+  "scripts": {
+    "test": "node smoke-test.js",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "vyapaar",
+    "khatabook",
+    "ai-assistant",
+    "gemini-ai",
+    "voice-khatabook",
+    "offline-first",
+    "pwa",
+    "fintech",
+    "sme",
+    "india"
+  ],
+  "author": "VyapaarAI Team",
+  "license": "MIT"
+}

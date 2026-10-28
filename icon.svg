@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="vgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b6b5c" />
+      <stop offset="100%" stop-color="#12332e" />
+    </linearGradient>
+    <linearGradient id="ggrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#vgrad)" />
+  <circle cx="256" cy="256" r="190" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8" />
+  <!-- Shopping bag / Rupee / Growth graph fusion -->
+  <path d="M176 190 C176 140, 210 100, 256 100 C302 100, 336 140, 336 190" fill="none" stroke="#2fb59f" stroke-width="24" stroke-linecap="round" />
+  <rect x="136" y="180" width="240" height="230" rx="36" fill="#ffffff" />
+  <!-- Rupee Symbol -->
+  <path d="M210 236 L302 236 M210 266 L286 266 M210 236 L210 300 C242 300, 266 286, 266 266 C266 236, 210 246, 210 300 L286 366" fill="none" stroke="#0b6b5c" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Sparkle AI star -->
+  <polygon points="360,140 372,168 400,180 372,192 360,220 348,192 320,180 348,168" fill="url(#ggrad)" />
+  <polygon points="140,340 148,358 166,366 148,374 140,392 132,374 114,366 132,358" fill="url(#ggrad)" />
+</svg>

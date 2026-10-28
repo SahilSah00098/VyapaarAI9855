@@ -1,0 +1,31 @@
+{
+  "name": "VyapaarAI - AI Growth Assistant & Voice Khatabook",
+  "short_name": "VyapaarAI",
+  "description": "Offline-First AI Business Assistant, Voice Khatabook, Smart Growth Advisor & Instant UPI Udhaar Recovery for Indian Local Businesses",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b6b5c",
+  "theme_color": "#0b6b5c",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "finance", "productivity"],
+  "shortcuts": [
+    {
+      "name": "New Sale / Voice",
+      "url": "./index.html?action=voice",
+      "icons": [{ "src": "./assets/icon.svg", "sizes": "96x96" }]
+    },
+    {
+      "name": "Growth Advisor",
+      "url": "./index.html?tab=Advisor",
+      "icons": [{ "src": "./assets/icon.svg", "sizes": "96x96" }]
+    }
+  ]
+}
