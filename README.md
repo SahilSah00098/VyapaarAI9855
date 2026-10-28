@@ -1,6 +1,14 @@
 # 🏪 VyapaarAI — Next-Gen AI Growth Assistant & Voice Khatabook
 
 <p align="center">
+  <a href="https://vyapaarai9855.vercel.app/">
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-Open_VyapaarAI-2563eb?style=for-the-badge" alt="Open VyapaarAI Live Demo">
+  </a>
+</p>
+
+**🌐 Live Demo:** https://vyapaarai9855.vercel.app/
+
+<p align="center">
   <img src="./assets/icon.svg" alt="VyapaarAI Logo" width="120" height="120">
 </p>
 
